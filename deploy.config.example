@@ -1,0 +1,20 @@
+# Deployment Configuration Example
+# Copy this file to deploy.config and update with your actual values
+# Add deploy.config to .gitignore to keep your credentials safe
+
+# Remote server details
+REMOTE_USER="your-username"
+REMOTE_HOST="your-server.com"
+REMOTE_PATH="/var/www/html/ircc.world"
+
+# SSH options
+SSH_PORT="22"
+SSH_KEY=""  # Optional: "-i /path/to/your/private/key"
+
+# Password authentication (alternative to SSH key)
+USE_PASSWORD=false  # Set to true to use password authentication
+SSH_PASSWORD=""     # Leave empty to be prompted, or set password here (less secure)
+USE_SSHPASS=true    # Set to false for interactive password prompt
+
+# Local path (usually current directory)
+LOCAL_PATH="."

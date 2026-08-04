@@ -1,0 +1,133 @@
+{
+    "meta": {
+        "from": "2026-04-11T00:00:00+00:00",
+        "to": "2026-04-12T23:59:59+00:00",
+        "timezone": "UTC",
+        "pages_fetched": 1,
+        "note": "Givebutter list endpoint does not filter by date server-side; this output is filtered client-side after full pagination."
+    },
+    "data": [
+        {
+            "id": "UA0vESft5YieoBPi",
+            "number": "9025263820",
+            "campaign_id": 570060,
+            "campaign_code": "JDQWMF",
+            "campaign_title": "IRCC 2026",
+            "plan_id": null,
+            "pledge_id": null,
+            "team_id": null,
+            "team_name": null,
+            "member_id": null,
+            "member_name": null,
+            "fund_id": null,
+            "fund_code": null,
+            "contact_id": 38465005,
+            "first_name": "Krishnaswamy",
+            "last_name": "Rao",
+            "company_name": null,
+            "company": null,
+            "email": "jyotsna23@yahoo.com",
+            "phone": null,
+            "address": {
+                "company": null,
+                "address_1": "926 Bending Branch way",
+                "address_2": null,
+                "city": "Temple",
+                "state": "TX",
+                "zipcode": "76502",
+                "country": "USA"
+            },
+            "status": "succeeded",
+            "payment_method": "paypal",
+            "method": "paypal",
+            "is_offline": false,
+            "internal_note": null,
+            "amount": 150,
+            "fee": 4.79,
+            "fee_covered": 4.79,
+            "donated": 150,
+            "payout": 150,
+            "currency": "USD",
+            "transacted_at": "2026-04-11T00:13:25+00:00",
+            "created_at": "2026-04-11T00:13:25+00:00",
+            "updated_at": "2026-04-11T00:13:28+00:00",
+            "timezone": "America/Chicago",
+            "giving_space": {
+                "id": 13592200,
+                "name": "Krishnaswamy Rao",
+                "amount": 150,
+                "message": null,
+                "created_at": "2026-04-11T00:13:28+00:00",
+                "updated_at": "2026-04-11T00:13:28+00:00"
+            },
+            "dedication": null,
+            "transactions": [
+                {
+                    "id": "9025263820",
+                    "plan_id": null,
+                    "pledge_id": null,
+                    "amount": 150,
+                    "fee": 4.79,
+                    "fee_covered": 4.79,
+                    "donated": 150,
+                    "payout": 150,
+                    "captured": true,
+                    "captured_at": "2026-04-11T00:13:26+00:00",
+                    "timezone": "America/Chicago",
+                    "refunded": false,
+                    "refunded_at": null,
+                    "line_items": [
+                        {
+                            "type": "donation",
+                            "subtype": "donation",
+                            "description": "Donation to Manca",
+                            "quantity": 1,
+                            "price": 150,
+                            "discount": 0,
+                            "total": 150,
+                            "created_at": "2026-04-11T00:13:25+00:00",
+                            "updated_at": "2026-04-11T00:13:25+00:00"
+                        },
+                        {
+                            "type": "donation",
+                            "subtype": "fee",
+                            "description": "Processing fee",
+                            "quantity": 1,
+                            "price": 4.79,
+                            "discount": 0,
+                            "total": 4.79,
+                            "created_at": "2026-04-11T00:13:25+00:00",
+                            "updated_at": "2026-04-11T00:13:25+00:00"
+                        }
+                    ],
+                    "fair_market_value_amount": null,
+                    "tax_deductible_amount": null,
+                    "is_recurring": false
+                }
+            ],
+            "custom_fields": [
+                {
+                    "id": 24414944,
+                    "field_id": 335641,
+                    "title": "RegID",
+                    "description": "IRCC registration id starting IRCCX",
+                    "type": "text",
+                    "value": "IRCC26190",
+                    "created_at": "2026-04-11T00:13:25+00:00",
+                    "updated_at": "2026-04-11T00:13:25+00:00"
+                }
+            ],
+            "utm_parameters": {
+                "referer": "https://ircc.world/"
+            },
+            "external_id": null,
+            "communication_opt_in": true,
+            "session_id": "02d1e639-8c8d-4a5e-bc91-9b259eb89f46",
+            "attribution_data": [],
+            "fair_market_value_amount": null,
+            "tax_deductible_amount": null,
+            "is_recurring": false,
+            "payout_id": null
+        }
+    ]
+}

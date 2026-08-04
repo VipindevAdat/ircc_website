@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IRCC 2026 - Partner Registration Links</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #F15B43;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .partner-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #F15B43;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        .partner-section h2 {
+            color: #F15B43;
+            margin-top: 0;
+        }
+        .link-box {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            word-break: break-all;
+        }
+        .link-box code {
+            color: #F15B43;
+            font-size: 14px;
+        }
+        .qr-code {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .qr-code img {
+            max-width: 200px;
+            border: 2px solid #ddd;
+            padding: 10px;
+            background: white;
+        }
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin: 20px 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #F15B43;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 10px 5px;
+        }
+        .button:hover {
+            background: #CB4B36;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>IRCC 2026 - Partner Registration Links & QR Codes</h1>
+        
+        <div class="instructions">
+            <h3>Instructions:</h3>
+            <p>Use these links or QR codes on your website to direct users to the IRCC registration page. The "How did you hear about us?" field will be automatically pre-filled with your organization name.</p>
+        </div>
+
+        <!-- MANCA Section -->
+        <div class="partner-section">
+            <h2>MANCA</h2>
+            <p><strong>Website:</strong> <a href="https://mancaonline.org/" target="_blank">https://mancaonline.org/</a></p>
+            
+            <h3>Registration Link:</h3>
+            <div class="link-box">
+                <code>https://ircc.world/register?source=manca</code>
+            </div>
+            <a href="https://ircc.world/register?source=manca" target="_blank" class="button">Test Link</a>
+            
+            <h3>QR Code:</h3>
+            <div class="qr-code">
+                <canvas id="qrcode-manca"></canvas>
+            </div>
+        </div>
+
+        <!-- GYRA Section -->
+        <div class="partner-section">
+            <h2>GYRA</h2>
+            <p><strong>Website:</strong> <a href="https://thinkgyra.org/" target="_blank">https://thinkgyra.org/</a></p>
+            
+            <h3>Registration Link:</h3>
+            <div class="link-box">
+                <code>https://ircc.world/register?source=gyra</code>
+            </div>
+            <a href="https://ircc.world/register?source=gyra" target="_blank" class="button">Test Link</a>
+            
+            <h3>QR Code:</h3>
+            <div class="qr-code">
+                <canvas id="qrcode-gyra"></canvas>
+            </div>
+        </div>
+
+        <!-- STEM4Girls Section -->
+        <div class="partner-section">
+            <h2>STEM4Girls</h2>
+            <p><strong>Organization:</strong> STEM4Girls</p>
+            
+            <h3>Registration Link:</h3>
+            <div class="link-box">
+                <code>https://ircc.world/register?source=stem4girls</code>
+            </div>
+            <a href="https://ircc.world/register?source=stem4girls" target="_blank" class="button">Test Link</a>
+            
+            <h3>QR Code:</h3>
+            <div class="qr-code">
+                <canvas id="qrcode-stem4girls"></canvas>
+            </div>
+        </div>
+
+        <!-- Bay Area Champions Section -->
+        <div class="partner-section">
+            <h2>Bay Area Champions</h2>
+            <p><strong>Website:</strong> <a href="https://www.bayareachampion.com" target="_blank">https://www.bayareachampion.com</a></p>
+            
+            <h3>Registration Link:</h3>
+            <div class="link-box">
+                <code>https://ircc.world/register?source=bayareachampions</code>
+            </div>
+            <a href="https://ircc.world/register?source=bayareachampions" target="_blank" class="button">Test Link</a>
+            
+            <h3>QR Code:</h3>
+            <div class="qr-code">
+                <canvas id="qrcode-bayareachampions"></canvas>
+            </div>
+        </div>
+
+        <div class="instructions" style="margin-top: 40px;">
+            <h3>How to Use:</h3>
+            <ol>
+                <li>Copy the registration link for your organization</li>
+                <li>Add it to your website as a button or text link</li>
+                <li>Or download the QR code image and display it on printed materials</li>
+                <li>When users click the link, they'll be taken to the IRCC registration page with your organization pre-selected</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        // Generate QR codes
+        QRCode.toCanvas(document.getElementById('qrcode-manca'), 'https://ircc.world/register?source=manca', {
+            width: 200,
+            margin: 2,
+            color: {
+                dark: '#F15B43',
+                light: '#FFFFFF'
+            }
+        });
+
+        QRCode.toCanvas(document.getElementById('qrcode-gyra'), 'https://ircc.world/register?source=gyra', {
+            width: 200,
+            margin: 2,
+            color: {
+                dark: '#F15B43',
+                light: '#FFFFFF'
+            }
+        });
+
+        QRCode.toCanvas(document.getElementById('qrcode-stem4girls'), 'https://ircc.world/register?source=stem4girls', {
+            width: 200,
+            margin: 2,
+            color: {
+                dark: '#F15B43',
+                light: '#FFFFFF'
+            }
+        });
+
+        QRCode.toCanvas(document.getElementById('qrcode-bayareachampions'), 'https://ircc.world/register?source=bayareachampions', {
+            width: 200,
+            margin: 2,
+            color: {
+                dark: '#F15B43',
+                light: '#FFFFFF'
+            }
+        });
+    </script>
+</body>
+</html>
