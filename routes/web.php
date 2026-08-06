@@ -81,7 +81,6 @@ Route::get('participants-category', [App\Http\Controllers\AbstractController::cl
 // Payment routes - specific routes before resource to avoid conflicts
 Route::get('payment/summary', [App\Http\Controllers\PaymentController::class, 'getPaymentSummary'])->name('payment.summary');
 Route::post('accounts/registration/payment', [App\Http\Controllers\PaymentController::class, 'store'])->name('account.registration.payment');
-Route::post('payment/cancel', [App\Http\Controllers\PaymentController::class, 'payment_cancel'])->name('payment.cancel');
 Route::resource('payment', App\Http\Controllers\PaymentController::class);
 
 Route::post('refund-request', [App\Http\Controllers\PaymentController::class, 'refundRequest'])->name('refund-request');
@@ -91,7 +90,7 @@ Route::post('accounts/update-attending-status', [App\Http\Controllers\DashboardC
 
 // Public routes (no auth required)
 Route::get('payment/success', [App\Http\Controllers\PaymentController::class, 'paymentSuccess'])->name('payment.success');
-Route::get('payment/cancel', [App\Http\Controllers\PaymentController::class, 'payment_cancel'])->name('payment.cancel');
+Route::match(['get', 'post'], 'payment/cancel', [App\Http\Controllers\PaymentController::class, 'payment_cancel'])->name('payment.cancel');
 Route::get('payment/verify/{payment}', [App\Http\Controllers\PaymentController::class, 'verifyPayment'])->name('payment.verify')->middleware('signed');
 Route::post('payment-response', [App\Http\Controllers\PaymentController::class, 'paymentResponse'])->name('payment.response');
 

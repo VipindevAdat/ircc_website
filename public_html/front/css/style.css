@@ -1705,12 +1705,23 @@ input[type=submit]:focus {
 }
 
 .site-header-transparent {
-  left: 0;
-  right: 0;
-  position: absolute;
+  left: auto;
+  right: auto;
+  position: relative;
   width: 100%;
-  top: 0;
+  top: auto;
   z-index: 99;
+  background-color: #151e32;
+}
+
+.site-header-transparent .top-header {
+  background-color: #0d1527;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.site-header-transparent .bottom-header {
+  background-color: #151e32;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 /*--- top header css start ---*/
@@ -2554,8 +2565,8 @@ input[type=submit]:focus {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  padding-bottom: 125px;
-  padding-top: 230px;
+  padding-bottom: 80px;
+  padding-top: 80px;
   position: relative;
   z-index: 1;
 }
@@ -2564,8 +2575,8 @@ input[type=submit]:focus {
 }
 @media screen and (max-width: 575px) {
   .home-banner {
-    padding-top: 200px;
-    padding-bottom: 70px;
+    padding-top: 50px;
+    padding-bottom: 50px;
   }
 }
 
@@ -3992,7 +4003,7 @@ input[type=submit]:focus {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom center;
-  padding: 190px 0 120px;
+  padding: 80px 0 60px;
   text-align: center;
   position: relative;
 }
