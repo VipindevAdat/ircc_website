@@ -889,6 +889,17 @@
          <img src="{{ url('front/images/ircc27-banner.jpg') }}" alt="IRCC 27 Thrissur Banner"
             style="width: 100%; height: auto; display: block; object-fit: contain;">
       </div>
+      <!-- Announcement Banner Section -->
+      <div class="ircc-announcement-banner" style="background: linear-gradient(135deg, #0d1527 0%, #151e32 50%, #1e2942 100%); border-top: 3px solid #F15B43; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 35px 20px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);">
+         <div class="container">
+            <h2 style="color: #ffffff; font-size: clamp(24px, 4vw, 38px); font-weight: 800; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; font-family: 'Montserrat', sans-serif;">
+               Thank You for Attending <span style="color: #F15B43;">IRCC 2026!</span>
+            </h2>
+            <p style="color: #e2e8f0; font-size: clamp(16px, 2.5vw, 22px); font-weight: 500; margin: 0; letter-spacing: 0.3px; font-family: 'Montserrat', sans-serif;">
+               Stay tuned for more updates on <strong style="color: #ff9d00; font-weight: 700;">IRCC 2027!</strong>
+            </p>
+         </div>
+      </div>
       <!-- home banner section html start -->
       <section class="home-banner" style="background-image: url({{ url("front/images/banner.jpg")}}">
          <div class="container">
