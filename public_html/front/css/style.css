@@ -1871,7 +1871,7 @@ input[type=submit]:focus {
 /*--------------------------------------------------------------
 >>> Main Header Menu
 ----------------------------------------------------------------*/
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1199px) {
   .bottom-header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
     padding: 12px 0;
@@ -1890,7 +1890,7 @@ input[type=submit]:focus {
   -ms-flex-align: center;
   align-items: center;
 }
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1199px) {
   .navigation-container {
     padding-right: 35px;
   }
@@ -2221,7 +2221,7 @@ input[type=submit]:focus {
   transition: background-color 0.5s linear;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1200px) {
   .fixed-header .bottom-header {
     background-color: #ffffff;
     -webkit-box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
@@ -2242,7 +2242,7 @@ input[type=submit]:focus {
     display: block;
   }
 }
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1199px) {
   .fixed-header .bottom-header {
     background-color: transparent;
     position: relative;
@@ -2261,7 +2261,7 @@ input[type=submit]:focus {
 .fixed-header .header-icons .icon-item a:hover {
   color: #CB4B36;
 }
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1199px) {
   .fixed-header .mobile-menu-container {
     background-color: #ffffff;
     -webkit-box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.2);
@@ -2301,7 +2301,7 @@ input[type=submit]:focus {
   background-color: transparent;
   padding: 0;
 }
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1200px) {
   .mobile-menu-container .slicknav_menu {
     display: none;
   }
@@ -2392,7 +2392,7 @@ input[type=submit]:focus {
   -ms-border-radius: 0px;
   border-radius: 0px;
 }
-@media screen and (max-width: 991px) {
+@media screen and (max-width: 1199px) {
   .mobile-menu-container {
     border-bottom: 1px solid rgba(255, 255, 255, 0.25);
   }
