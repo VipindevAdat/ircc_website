@@ -108,11 +108,4 @@ Route::resource('landing-pages', App\Http\Controllers\Admin\LandingPageControlle
     Route::get('addSettings','SettingController@addSettings')->name('addSettings');
 });
 
-View::Composer(['footer'], function($view){
-    if(auth()->check()){
-        $view->with([
-            'settings' => Setting::get(),
-        ]);
-    }
-
-});
+// View composers moved to AppServiceProvider so they run even when routes are cached.

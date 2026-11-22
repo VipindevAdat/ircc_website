@@ -49,7 +49,7 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
-        View::composer(['components.header', 'components.footer', 'home'], function ($view) {
+        View::composer(['components.header', 'components.footer', 'home', 'auth.register', 'auth.login', 'layouts.app'], function ($view) {
             $year = request()->route('year');
             if (!is_numeric($year)) {
                 $year = $view->offsetExists('year') ? $view->offsetGet('year') : 2026;
@@ -61,9 +61,7 @@ class AppServiceProvider extends ServiceProvider
             if (!$view->offsetExists('year')) {
                 $view->with('year', (int) $year);
             }
-        });
 
-        View::composer('layouts.app', function ($view) {
             $settings = $view->offsetExists('settings')
                 ? $view->offsetGet('settings')
                 : Setting::query()->where('status', 1)->get();
@@ -72,6 +70,12 @@ class AppServiceProvider extends ServiceProvider
             }
             if (!$view->offsetExists('socialLinks')) {
                 $view->with('socialLinks', SocialLinkPresenter::map($settings));
+            }
+        });
+
+        View::composer('footer', function ($view) {
+            if (auth()->check()) {
+                $view->with('settings', Setting::get());
             }
         });
 

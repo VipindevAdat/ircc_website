@@ -99,8 +99,4 @@ Route::post('payment-response', [App\Http\Controllers\PaymentController::class, 
 
 
 
-View::Composer(['components.footer', 'components.header', 'layouts.app','auth.register','auth.login'], function ($view) {
-    $view->with([
-        'settings' => Setting::get(),
-    ]);
-});
+// View composers moved to AppServiceProvider so they run even when routes are cached.
