@@ -77,8 +77,8 @@
          <div class="site-identity">
             <h1 class="site-title">
                <a href="{{route('/')}}">
-                  <img class="white-logo" src="{{ url("front/images/unbound-logo.png")}}" alt="logo">
-                  <img class="black-logo" src="{{ url("front/images/unbound-logo1.png")}}" alt="logo">
+                  <img class="white-logo" src="{{ optional($landingPage)->header_logo ? url('uploads/' . $landingPage->header_logo) : url("front/images/unbound-logo.png") }}" alt="logo">
+                  <img class="black-logo" src="{{ optional($landingPage)->header_logo ? url('uploads/' . $landingPage->header_logo) : url("front/images/unbound-logo1.png") }}" alt="logo">
                </a>
             </h1>
          </div>

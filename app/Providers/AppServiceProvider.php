@@ -49,6 +49,20 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
+        View::composer(['components.header', 'components.footer', 'home'], function ($view) {
+            $year = request()->route('year');
+            if (!is_numeric($year)) {
+                $year = $view->offsetExists('year') ? $view->offsetGet('year') : 2026;
+            }
+            $landingPage = \App\Models\LandingPage::where('year', (int) $year)->first();
+            if (!$view->offsetExists('landingPage')) {
+                $view->with('landingPage', $landingPage);
+            }
+            if (!$view->offsetExists('year')) {
+                $view->with('year', (int) $year);
+            }
+        });
+
         View::composer('layouts.app', function ($view) {
             $settings = $view->offsetExists('settings')
                 ? $view->offsetGet('settings')

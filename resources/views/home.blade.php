@@ -886,7 +886,7 @@
    <main id="content" class="site-main">
       <!-- full width banner image between navbar and hero section -->
       <div class="top-banner-image-wrapper" style="width: 100%; overflow: hidden; background: #000;">
-         <img src="{{ url('front/images/ircc27-banner.jpg') }}" alt="IRCC 27 Thrissur Banner"
+         <img src="{{ optional($landingPage)->banner_image ? url('uploads/' . $landingPage->banner_image) : url('front/images/ircc27-banner.jpg') }}" alt="IRCC {{ $year }} Banner"
             style="width: 100%; height: auto; display: block; object-fit: contain;">
       </div>
       <!-- Announcement Banner Section -->
@@ -1113,8 +1113,9 @@
          <div class="container">
             <div class="ircc-video text-center mb-4" style="max-width: 100%;">
                <video controls preload="metadata" playsinline
+                  @if(optional($landingPage)->video_thumbnail) poster="{{ url('uploads/' . $landingPage->video_thumbnail) }}" @endif
                   style="width: 100%; max-width: 100%; border-radius: 8px; display: block; background: #000;">
-                  <source src="{{ url('uploads/videos/ircc-all-speakers-full.mp4') }}" type="video/mp4">
+                  <source src="{{ optional($landingPage)->video ? url('uploads/' . $landingPage->video) : url('uploads/videos/ircc-all-speakers-full.mp4') }}" type="video/mp4">
                   Your browser does not support the video tag.
                </video>
             </div>
