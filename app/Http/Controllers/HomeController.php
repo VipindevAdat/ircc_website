@@ -44,8 +44,8 @@ class HomeController extends Controller
     {
         $categoryCommittee=optional(TeamCategory::where('parent_id',1)->where('status',1)->get())->pluck('id')->toArray();
         $patronCat=optional(TeamCategory::where('parent_id',1)->where('name','Patron')->first())->id;
-        $patrons=Team::where('team_category_id',$patronCat)->where('status',1)->orderBy('sort_order','ASC')->get();
-        $committees=Team::with('category')->whereIn('team_category_id',$categoryCommittee)->where('team_category_id','<>',$patronCat)->where('is_home',1)->where('status',1)->orderBy('sort_order','ASC')->get()->take(4);
+        $patrons=Team::where('team_category_id',$patronCat)->where('status',1)->where(function ($q) { $q->where('year', 2026)->orWhereNull('year'); })->orderBy('sort_order','ASC')->get();
+        $committees=Team::with('category')->whereIn('team_category_id',$categoryCommittee)->where('team_category_id','<>',$patronCat)->where('is_home',1)->where('status',1)->where(function ($q) { $q->where('year', 2026)->orWhereNull('year'); })->orderBy('sort_order','ASC')->get()->take(4);
         
         // Get speakers for homepage carousel
         $speakers = collect();
@@ -71,6 +71,7 @@ class HomeController extends Controller
                     $speakers = Team::with('category')
                         ->whereIn('team_category_id', $speakerCategoryIds)
                         ->where('status', 1)
+                        ->where(function ($q) { $q->where('year', 2026)->orWhereNull('year'); })
                         ->orderBy('sort_order', 'ASC')
                         ->get();
                 }
@@ -79,9 +80,73 @@ class HomeController extends Controller
             \Log::warning('Error loading speakers for homepage: ' . $e->getMessage());
         }
     
+        $nextYear = 2027;
+        $nextYearLandingActive = \App\Models\LandingPage::where('year', $nextYear)->where('is_active', true)->exists();
+
         return view('home')->with([
+            'year' => 2026,
+            'nextYear' => $nextYear,
+            'nextYearLandingActive' => $nextYearLandingActive,
             'settings'=>Setting::where('status',1)->get(),
-            'reviews'=>Review::where('is_home',1)->where('status',1)->orderBy('sort_order','ASC')->get()->take(3),
+            'reviews'=>Review::where('is_home',1)->where('status',1)->where(function ($q) { $q->where('year', 2026)->orWhereNull('year'); })->orderBy('sort_order','ASC')->get()->take(3),
+            'patrons'=>$patrons,
+            'committee'=>$committees,
+            'speakers'=>$speakers
+        ]);
+    }
+
+    public function yearLanding($year)
+    {
+        $year = (int) $year;
+        $landingPage = \App\Models\LandingPage::where('year', $year)->where('is_active', true)->first();
+        if (!$landingPage) {
+            abort(404);
+        }
+
+        $categoryCommittee=optional(TeamCategory::where('parent_id',1)->where('status',1)->get())->pluck('id')->toArray();
+        $patronCat=optional(TeamCategory::where('parent_id',1)->where('name','Patron')->first())->id;
+        $patrons=Team::where('team_category_id',$patronCat)->where('status',1)->where(function ($q) use ($year) { $q->where('year', $year)->orWhereNull('year'); })->orderBy('sort_order','ASC')->get();
+        $committees=Team::with('category')->whereIn('team_category_id',$categoryCommittee)->where('team_category_id','<>',$patronCat)->where('is_home',1)->where('status',1)->where(function ($q) use ($year) { $q->where('year', $year)->orWhereNull('year'); })->orderBy('sort_order','ASC')->get()->take(4);
+
+        $speakers = collect();
+        try {
+            $speakerParent = TeamCategory::whereNull('parent_id')
+                ->where('status', 1)
+                ->where(function($query) {
+                    $query->where('name', 'LIKE', '%Speaker%')
+                          ->orWhere('name', 'LIKE', '%speaker%')
+                          ->orWhere('id', 2);
+                })
+                ->first();
+
+            if ($speakerParent) {
+                $speakerCategoryIds = TeamCategory::where('parent_id', $speakerParent->id)
+                    ->where('status', 1)
+                    ->pluck('id')
+                    ->toArray();
+
+                if (!empty($speakerCategoryIds)) {
+                    $speakers = Team::with('category')
+                        ->whereIn('team_category_id', $speakerCategoryIds)
+                        ->where('status', 1)
+                        ->where(function ($q) use ($year) { $q->where('year', $year)->orWhereNull('year'); })
+                        ->orderBy('sort_order', 'ASC')
+                        ->get();
+                }
+            }
+        } catch (\Exception $e) {
+            \Log::warning('Error loading speakers for homepage: ' . $e->getMessage());
+        }
+
+        $nextYear = $year + 1;
+        $nextYearLandingActive = \App\Models\LandingPage::where('year', $nextYear)->where('is_active', true)->exists();
+
+        return view('home')->with([
+            'year' => $year,
+            'nextYear' => $nextYear,
+            'nextYearLandingActive' => $nextYearLandingActive,
+            'settings'=>Setting::where('status',1)->get(),
+            'reviews'=>Review::where('is_home',1)->where('status',1)->where(function ($q) use ($year) { $q->where('year', $year)->orWhereNull('year'); })->orderBy('sort_order','ASC')->get()->take(3),
             'patrons'=>$patrons,
             'committee'=>$committees,
             'speakers'=>$speakers

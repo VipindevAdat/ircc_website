@@ -40,6 +40,7 @@ Auth::routes(['register' => false]);
     Route::resource('registration', App\Http\Controllers\Admin\RegistrationController::class);
     Route::resource('payment', App\Http\Controllers\Admin\PaymentController::class);
     Route::resource('settings', App\Http\Controllers\Admin\SettingController::class);
+Route::resource('landing-pages', App\Http\Controllers\Admin\LandingPageController::class);
     Route::get('social-media', [App\Http\Controllers\Admin\SocialMediaController::class, 'index'])->name('social-media.index');
     Route::post('social-media', [App\Http\Controllers\Admin\SocialMediaController::class, 'store'])->name('social-media.store');
     Route::post('award-graphics/headings', [App\Http\Controllers\Admin\AwardGraphicController::class, 'updateHeadings'])->name('award-graphics.headings');

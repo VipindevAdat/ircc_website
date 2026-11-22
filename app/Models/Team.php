@@ -13,7 +13,7 @@ class Team extends Model
     use HasFactory;
     use Mediable;
     protected $fillable = [
-        'name', 'team_category_id', 'designation', 'qualification', 'organization', 'location','is_home', 'sort_order', 'status'
+        'name', 'team_category_id', 'designation', 'qualification', 'organization', 'location','is_home', 'sort_order', 'status', 'year'
     ];
     public function category(){
         return $this->belongsTo(TeamCategory::class,'team_category_id','id');

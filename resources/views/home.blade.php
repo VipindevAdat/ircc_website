@@ -893,11 +893,13 @@
       <div class="ircc-announcement-banner" style="background: linear-gradient(135deg, #0d1527 0%, #151e32 50%, #1e2942 100%); border-top: 3px solid #F15B43; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 35px 20px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);">
          <div class="container">
             <h2 style="color: #ffffff; font-size: clamp(24px, 4vw, 38px); font-weight: 800; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; font-family: 'Montserrat', sans-serif;">
-               Thank You for Attending <span style="color: #F15B43;">IRCC 2026!</span>
+               Thank You for Attending <span style="color: #F15B43;">IRCC {{ $year }}!</span>
             </h2>
+            @if(!empty($nextYearLandingActive))
             <p style="color: #e2e8f0; font-size: clamp(16px, 2.5vw, 22px); font-weight: 500; margin: 0; letter-spacing: 0.3px; font-family: 'Montserrat', sans-serif;">
-               Stay tuned for more updates on <strong style="color: #ff9d00; font-weight: 700;">IRCC 2027!</strong>
+               Stay tuned for more updates on <a href="{{ route('year.landing', $nextYear) }}" style="color: #ff9d00; font-weight: 700; text-decoration: underline;">IRCC {{ $nextYear }}!</a>
             </p>
+            @endif
          </div>
       </div>
       <!-- home banner section html start -->
@@ -907,19 +909,19 @@
                <div class="col-lg-7">
                   <div class="banner-content">
 
-                     <h2 class="banner-title">International Research Conference<br>for Children 2026</h2>
+                     <h2 class="banner-title">International Research Conference<br>for Children {{ $year }}</h2>
                      <!-- <div class="sub-title">DONATE TO CONTRIBUTE</div>
                         <h2 class="banner-title">Let's build the better world together</h2> -->
                      <div class="banner-text">
                         <p style="margin-bottom:20px;font-size: 25px;"><strong>Venue: </strong>525 Los Coches St, Milpitas,
                            CA 95035.</p>
                         @php
-                           $eventDate = \Carbon\Carbon::parse('2026-06-06');
+                           $eventDate = \Carbon\Carbon::parse($year.'-06-06');
                            $now = \Carbon\Carbon::now();
                         @endphp
                         @if($eventDate->format('Y-m-d') >= $now->format('Y-m-d'))
                            <p style="margin-bottom:5px;font-size: 25px;" class="last-date"><span>Conference Date: Saturday &
-                                 Sunday, June 6-7, 2026 (Two-Day Event) </span> <span id="days"
+                                 Sunday, June 6-7, {{ $year }} (Two-Day Event) </span> <span id="days"
                                  class="blink-soft banner-date days-span"
                                  style="font-size:26px;padding-left:10px;font-weight: bold;display:none;color:#ffffff;"></span><span
                                  class="blink-soft days-span"
@@ -1365,29 +1367,29 @@
                      <table>
                         <tr>
                            <td><span class="label">Registration opens on</span> <span class="date">February 7th,
-                                 2026</span></td>
+                                 {{ $year }}</span></td>
                         </tr>
                         <tr>
                            <td><span class="label">Early bird registration deadline</span> <span class="date">March 31st,
-                                 2026</span></td>
+                                 {{ $year }}</span></td>
                         </tr>
                         <tr>
                            <td>
                               <span class="label">Abstract submission deadline</span>
                               <span class="date">
-                                 <del>April 15th, 2026</del>
+                                 <del>April 15th, {{ $year }}</del>
                                  &nbsp;&rarr;&nbsp;
-                                 <strong>April 30th, 2026</strong>
+                                 <strong>April 30th, {{ $year }}</strong>
                               </span>
                            </td>
                         </tr>
                         <tr>
                            <td><span class="label">Regular registration starts on</span> <span class="date">April 1st,
-                                 2026</span></td>
+                                 {{ $year }}</span></td>
                         </tr>
                         <tr>
                            <td><span class="label">Conference date</span> <span class="date">Saturday & Sunday, June 6-7,
-                                 2026 (Two-Day Event)</span><br>
+                                 {{ $year }} (Two-Day Event)</span><br>
                               <span class="date">June 6th (Sat): 8:00 AM – 7:00 PM &nbsp;|&nbsp; June 7th (Sun): 8:30 AM –
                                  5:00 PM</span>
                            </td>
@@ -1403,9 +1405,9 @@
                <div class="col-lg-7">
                   <article class="event-item" style="display: flex; align-items: center; height: 100%;">
                      <div class="">
-                        <p>The International Research Conference for Children 2026 (IRCC'26), organized by <b>MANCA,
+                        <p>The International Research Conference for Children {{ $year }} (IRCC'{{ substr($year, -2) }}), organized by <b>MANCA,
                               STEM4Girls, and the Global Young Researchers' Academy</b> (GYRA), will take place as a
-                           <b>two-day event on Saturday & Sunday, June 6-7, 2026, at the India Community Center (ICC),
+                           <b>two-day event on Saturday & Sunday, June 6-7, {{ $year }}, at the India Community Center (ICC),
                               Milpitas, California.</b>
                         <p>This event invites students from elementary to high school around the globe to participate.</p>
                         <p>The conference will feature keynotes, plenary talks, and lectures by internationally established
@@ -1518,9 +1520,9 @@
                      <div class="home-about-right">
                         <div class="home-about-content">
                           <div class="sub-title">ABOUT US</div> 
-                           <h2 class="section-title" style="font-size: 42px !important;">International Research Conference<br>for Children 2026</h2>
+                           <h2 class="section-title" style="font-size: 42px !important;">International Research Conference<br>for Children {{ $year }}</h2>
                            <p style="text-align:">In collaboration with the Global Young Researchers’ Academy (GYRA), Malayalee Association of Northern California(MANCA) and STEM4Girls, an International Research Conference for Children (IRCC’26) has been organized at India Community Center
-   from 6th to 7th June 2026 in  Milpitas, California</p>
+   from 6th to 7th June {{ $year }} in  Milpitas, California</p>
 
                            <a href="{{route('about')}}" class="button-round mt-2">Learn More</a>
                         </div>
@@ -1817,8 +1819,8 @@
 @section('script')
    <script>
       function makeTimer() {
-         // Countdown to conference date: June 6th, 2026
-         var endDate = '6 June 2026 00:00:00 GMT+01:00';
+         // Countdown to conference date: June 6th, {{ $year }}
+         var endDate = '6 June {{ $year }} 00:00:00 GMT+01:00';
 
          console.log(endDate);
          var endTime = new Date(endDate);

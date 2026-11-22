@@ -221,6 +221,7 @@
                 <li><a  @if (!request()->segment(1) || request()->fullUrl()=== route('admin.category.index')) class="active" @endif href="{{ route('admin.category.index') }}">Category</a></li>
                 <li><a  @if (!request()->segment(1) || request()->fullUrl()=== route('admin.category-class.index')) class="active" @endif href="{{ route('admin.category-class.index') }}">Category Class</a></li>
                 <li><a  @if (!request()->segment(1) || request()->fullUrl()=== route('admin.settings.index')) class="active" @endif href="{{ route('admin.settings.index') }}">General</a></li>
+                 <li><a  @if (request()->routeIs('admin.landing-pages.*')) class="active" @endif href="{{ route('admin.landing-pages.index') }}">Landing Pages</a></li>
                 <li><a  @if (request()->routeIs('admin.social-media.index')) class="active" @endif href="{{ route('admin.social-media.index') }}">Social media</a></li>
 
             </ul>

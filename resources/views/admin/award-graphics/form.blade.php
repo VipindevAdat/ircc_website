@@ -54,6 +54,11 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label">Year (leave blank for all years)</label>
+                <input type="number" name="year" class="form-control" value="{{ old('year', $graphic->year) }}" placeholder="e.g. 2027">
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label">Status</label>
                 <select name="status" class="form-select" required>
                     <option value="1" {{ old('status', $graphic->status) == 1 ? 'selected' : '' }}>Enabled</option>

@@ -15,7 +15,9 @@ class ReviewController extends Controller
         if ($request->ajax()) {
 
             $review = Review::select('reviews.*');
-            
+            if ($request->filled('year')) {
+                $review->where('year', $request->year);
+            }
             return $datatables->eloquent($review)
             ->editColumn('created_at', function (Review $review) {
                 return Carbon::parse($review->created_at)->format('m-d-Y') . '<br>' . Carbon::parse($review->created_at)->format('H:i:s');
@@ -50,7 +52,7 @@ class ReviewController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(\Illuminate\Http\Request $request)
     {
         return view('admin.reviews.form')->with([
             'review' => new Review(),

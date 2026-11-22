@@ -13,6 +13,9 @@ class TeamController extends Controller {
     public function index(Request $request, Datatables $datatables) {
         if ($request->ajax()) {
             $team = Team::select('teams.*');
+            if ($request->filled('year')) {
+                $team->where('year', $request->year);
+            }
             return $datatables->eloquent($team)->editColumn('category', function (Team $team) {
                 return $team->team_category_id ? ($team->category->parent ? optional($team->category)->name . ' - ' . optional($team->category->parent)->name : optional($team->category)->name) : '--';
             })->editColumn('is_home', function (Team $team) {
@@ -34,14 +37,18 @@ class TeamController extends Controller {
         return view('admin.team.list');
     }
 
-    public function create() {
+    public function create(\Illuminate\Http\Request $request) {
         $teamCategories = TeamCategory::where('status', 1)->whereNull('parent_id')->get();
         $categories = [];
         foreach ($teamCategories as $teamCategory) {
             $categories[$teamCategory->id]['category'] = $teamCategory;
             $categories[$teamCategory->id]['sub_category'] = TeamCategory::where('status', 1)->where('parent_id', $teamCategory->id)->get();
         }
-        return view('admin.team.form')->with(['team' => new Team(), 'categories' => $categories]);
+        $team = new Team();
+        if ($request->filled('year')) {
+            $team->year = $request->year;
+        }
+        return view('admin.team.form')->with(['team' => $team, 'categories' => $categories]);
     }
    
     public function store(Request $request) {

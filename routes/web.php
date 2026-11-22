@@ -58,6 +58,7 @@ Route::post('faq_submit', [App\Http\Controllers\HomeController::class, 'faq_subm
 Route::get('mailTest', [App\Http\Controllers\HomeController::class, 'mailTest'])->name('mailTest');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/{year}', [App\Http\Controllers\HomeController::class, 'yearLanding'])->where('year', '[0-9]{4}')->name('year.landing');
 Route::get('/register-success', [App\Http\Controllers\HomeController::class, 'registerSuccess'])->name('register-success');
 Route::get('/register-failure', [App\Http\Controllers\HomeController::class, 'registerFailure'])->name('register-failure');
 Route::get('send-otp', [App\Http\Controllers\HomeController::class, 'sendOtp'])->name('send-otp');

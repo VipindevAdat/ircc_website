@@ -13,10 +13,14 @@ class AwardGraphicController extends Controller
 {
     private const AWARDS_HEADING_CODES = ['awards_banner_title', 'awards_section_heading'];
 
-    public function index()
+    public function index(Request $request)
     {
         $graphics = AwardGraphic::query()
-            ->with('media')
+            ->with('media');
+        if ($request->filled('year')) {
+            $graphics->where('year', $request->year);
+        }
+        $graphics = $graphics
             ->orderBy('sort_order')
             ->orderBy('id')
             ->get();
@@ -45,12 +49,16 @@ class AwardGraphicController extends Controller
             ->with('success_message', 'Awards page headings updated.');
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $nextSort = (int) (AwardGraphic::query()->max('sort_order') ?? 0) + 1;
+        $graphic = new AwardGraphic(['sort_order' => $nextSort, 'status' => 1]);
+        if ($request->filled('year')) {
+            $graphic->year = $request->year;
+        }
 
         return view('admin.award-graphics.form', [
-            'graphic' => new AwardGraphic(['sort_order' => $nextSort, 'status' => 1]),
+            'graphic' => $graphic,
             'featured' => null,
         ]);
     }
@@ -68,6 +76,7 @@ class AwardGraphicController extends Controller
             'alt_text' => $request->input('alt_text'),
             'sort_order' => (int) $request->input('sort_order'),
             'status' => (int) $request->input('status'),
+            'year' => $request->filled('year') ? (int) $request->input('year') : null,
         ]);
 
         $this->attachFeatured($graphic, $request);
@@ -102,6 +111,7 @@ class AwardGraphicController extends Controller
             'alt_text' => $request->input('alt_text'),
             'sort_order' => (int) $request->input('sort_order'),
             'status' => (int) $request->input('status'),
+            'year' => $request->filled('year') ? (int) $request->input('year') : null,
         ]);
 
         if ($request->hasFile('featured')) {
