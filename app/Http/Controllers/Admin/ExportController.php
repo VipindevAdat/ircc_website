@@ -13,7 +13,8 @@ class ExportController extends Controller
             $fileName = 'abstract-' . date('Y-m-d h:m:s') . '.xls';  
         }
         else{
-            $fileName = 'registrations-' . date('Y-m-d h:m:s') . '.xls';
+            $yearSuffix = $request->filled('year') ? '-year-' . $request->year : '';
+            $fileName = 'registrations' . $yearSuffix . '-' . date('Y-m-d h:m:s') . '.xls';
         }
         
         return Excel::download(new ExportRegistration($request), $fileName);
