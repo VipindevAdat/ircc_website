@@ -15,4 +15,3 @@ class LandingPageSeeder extends Seeder
         );
     }
 }
-PHP
