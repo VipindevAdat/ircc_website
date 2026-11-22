@@ -6,7 +6,7 @@
         <div class="col-lg-3 col-md-6">
             <aside class="widget widget_text">
                 <div class="footer-logo">
-                    <a href="{{route('/')}}"><img src="{{ url("front/images/unbound-logo.png")}}" alt=""></a>
+                    <a href="{{route('/')}}"><img src="{{ optional($landingPage)->footer_logo ? url('uploads/' . $landingPage->footer_logo) : url("front/images/unbound-logo.png") }}" alt=""></a>
                 </div>
                 <div class="textwidget widget-text">
                 A scientific arena for young researchers

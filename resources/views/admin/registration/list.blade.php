@@ -56,6 +56,15 @@
                 @csrf
                 <input type="hidden" name="type" value="registration">
                 <div class="card-body">
+                    <div class="mb-3">
+                        <label class="form-label">Export Year</label>
+                        <select name="year" class="form-select">
+                            <option value="">All Years</option>
+                            @for ($y = (int) date('Y') + 1; $y >= 2024; $y--)
+                                <option value="{{ $y }}">{{ $y }}</option>
+                            @endfor
+                        </select>
+                    </div>
                     <div class="d-md-flex gap-4 align-items-center">
                         <div class="d-none d-md-flex">All Registrations</div>
                         <div class="d-md-flex gap-4 align-items-center">

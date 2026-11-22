@@ -52,7 +52,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest:customer')->except('logout');
-       
+        $this->middleware('throttle:10,1')->only('register');
+
     }
     
     /**
@@ -64,6 +65,11 @@ class RegisterController extends Controller
     {
         $settings = Setting::where('status', 1)->get();
         
+        // Simple anti-spam math challenge
+        $captchaA = random_int(1, 9);
+        $captchaB = random_int(1, 9);
+        session(['registration_captcha_answer' => $captchaA + $captchaB]);
+
         // Get the source parameter from query string (for pre-populating "how did you hear about us")
         $source = $request->query('source', '');
         
@@ -81,7 +87,7 @@ class RegisterController extends Controller
         $normalizedSource = strtolower($source);
         $hearAboutUs = isset($sourceMap[$normalizedSource]) ? $sourceMap[$normalizedSource] : '';
         
-        return view('auth.register', compact('settings', 'hearAboutUs'));
+        return view('auth.register', compact('settings', 'hearAboutUs', 'captchaA', 'captchaB'));
     }
     /**
      * Get a validator for an incoming registration request.
@@ -91,7 +97,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        $validator = Validator::make($data, [
             'ircc_form'=>['required','string'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -99,7 +105,16 @@ class RegisterController extends Controller
             'phone' => ['required', 'numeric'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:registrations'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'captcha_answer' => ['required', 'integer'],
         ]);
+
+        $validator->after(function ($validator) use ($data) {
+            if ((int) ($data['captcha_answer'] ?? -1) !== (int) session('registration_captcha_answer')) {
+                $validator->errors()->add('captcha_answer', 'Incorrect answer. Please try again.');
+            }
+        });
+
+        return $validator;
     }
 
     /**
@@ -111,14 +126,17 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $decrypt=Crypt::decrypt($data['ircc_form']);
-        if($decrypt=='IRCC2026'){
+        if (!is_string($decrypt) || !str_starts_with($decrypt, 'IRCC')) {
+            throw new Exception('Invalid registration form code');
+        }
+        $yearSuffix = substr($decrypt, 4, 2) ?: date('y');
         $lastRegistration = Registration::orderBy('id', 'desc')->first();
         if ($lastRegistration) {
             preg_match('/(\d+)/', $lastRegistration->id, $matches);
             $lastId = (int) $matches[0];
-            $newId = 'IRCC26' . str_pad($lastId + 1, 3, '0', STR_PAD_LEFT);
+            $newId = 'IRCC' . $yearSuffix . str_pad($lastId + 1, 3, '0', STR_PAD_LEFT);
         } else {
-            $newId = 'IRCC26001';
+            $newId = 'IRCC' . $yearSuffix . '001';
         }
         $reg_tag=optional(Setting::where('code','registration_tag')->first())->value;
         
@@ -163,17 +181,13 @@ class RegisterController extends Controller
         // This ensures registered users are only charged if they actually participate
         
         return $registration;
-        }
-        else{
-            throw new Exception('Invalid registration form code');
-        }
     }
     public function register(Request $request)
     {
        $this->validator($request->all())->validate();
        $decrypt=Crypt::decrypt($request->ircc_form);
        
-       if($decrypt=='IRCC2026'){
+       if (true) {
             if (!$this->validator($request->all())->validate()){
                 return response()->json([
                         "status" => false,
@@ -252,15 +266,6 @@ class RegisterController extends Controller
                     ], 422)
                     : redirect()->route('register-failure')->with('error', 'Registration failed. Please try again or contact support.');
             }
-        }
-        else {
-            return $request->wantsJson()
-                ? response()->json([
-                    'status' => false,
-                    'message' => 'Invalid registration form.',
-                    'errors' => ['ircc_form' => ['Invalid registration form.']]
-                ], 422)
-                : redirect()->route('register-failure')->with('error', 'Invalid registration form.');
         }
     }
     protected function guard()

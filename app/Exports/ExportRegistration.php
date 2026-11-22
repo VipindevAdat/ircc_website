@@ -45,6 +45,10 @@ class ExportRegistration implements FromCollection, WithHeadings, WithStyles, Wi
             $query->whereBetween('created_at', [$from, $to]);
         }
 
+        if ($request->filled('year')) {
+            $query->whereYear('created_at', (int) $request->year);
+        }
+
         if ($request->type === 'abstract') {
             $query->whereHas('abstracts');
         }

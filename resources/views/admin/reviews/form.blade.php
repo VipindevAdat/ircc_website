@@ -55,6 +55,12 @@
                        
                            <div class="col-md-4">
                               <div class="mb-3">
+                               <label class="form-label">Year (leave blank for all years)</label>
+                               <input type="number" class="form-control" name="year" value="{{old('year', $review->year)}}" placeholder="e.g. 2027">
+                               </div>
+                            </div>
+                            <div class="col-md-4">
+                               <div class="mb-3">
                                  <label class="form-label">Status</label>
                               <select class="form-select " aria-label="Default" name="status" id="status" required>
                            

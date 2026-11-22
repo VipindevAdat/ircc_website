@@ -11,6 +11,9 @@ class GalleryController extends Controller {
     public function index(Request $request, Datatables $datatables) {
         if ($request->ajax()) {
             $gallery = Gallery::select("galleries.*");
+            if ($request->filled('year')) {
+                $gallery->where('year', $request->year);
+            }
             return $datatables->eloquent($gallery)->addColumn("image", function (Gallery $gallery) {
                 $img = $gallery->getMedia("gallery")->first() ? $gallery->getMedia("gallery")->first()->getUrl() : url("assets/images/no-image.png");
                 return '<a href="#"><img src="' . $img . '" class="rounded" width="30" height="30" alt="..."></a>';
@@ -31,8 +34,12 @@ class GalleryController extends Controller {
         }
         return view("admin.gallery.list");
     }
-    public function create() {
-        return view("admin.gallery.form")->with(["gallery" => new Gallery() ]);
+    public function create(\Illuminate\Http\Request $request) {
+        $gallery = new Gallery();
+        if ($request->filled('year')) {
+            $gallery->year = $request->year;
+        }
+        return view("admin.gallery.form")->with(["gallery" => $gallery ]);
     }
     public function store(Request $request) {
         $this->validate($request, ["name" => "required"]);

@@ -16,6 +16,7 @@ class AwardGraphic extends Model
         'public_asset_path',
         'sort_order',
         'status',
+        'year',
     ];
 
     protected $casts = [

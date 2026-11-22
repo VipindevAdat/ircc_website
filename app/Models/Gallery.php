@@ -9,5 +9,5 @@ class Gallery extends Model
 {
     use HasFactory;
     use Mediable;
-    protected $fillable = ['name','gallery_type','is_home','video_link','sort_order','status'];
+    protected $fillable = ['name','gallery_type','is_home','video_link','sort_order','status','year'];
 }

@@ -301,6 +301,14 @@
                             <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot Password?</a>
                         </div> --}}
 
+                                <div class="col-lg-12 col-md-6 col-sm-6 col-12 form-group">
+                                    <label for="captcha_answer" style="display:block; margin-bottom:6px;">Anti-spam check: What is {{ $captchaA ?? 0 }} + {{ $captchaB ?? 0 }}? *</label>
+                                    <input class="form-control-registration" type="number" name="captcha_answer" id="captcha_answer" placeholder="Your answer" value="{{ old('captcha_answer') }}" required>
+                                    @error('captcha_answer')
+                                    <span class="form-validation" id="captcha_answer1">{{ $message }}</span>
+                                    @enderror
+                                    <span class="form-validation" id="captcha_answer1"></span>
+                                </div>
                                 <div class="form-group">
                             <button type="submit" class="button-login reg_register">Register</button>
                         </div>
