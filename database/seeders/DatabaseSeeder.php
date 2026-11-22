@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             AbstractDomainSeeder::class,
             PaymentStatusSeeder::class,
             ReviewStatusSeeder::class,
-            PaymentCategorySeeder::class
+            PaymentCategorySeeder::class,
+            LandingPageSeeder::class
         ]);
     }
     
